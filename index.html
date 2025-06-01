@@ -28,23 +28,23 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-200 to-purple-300 min-h-screen flex items-center justify-center p-4">
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
 
-    <div class="bg-white p-8 rounded-3xl shadow-2xl shadow-blue-300/50 w-full max-w-md border border-gray-100 transform transition-all duration-300 hover:scale-[1.01]">
+    <div class="bg-white p-8 rounded-3xl shadow-xl shadow-gray-200 w-full max-w-md border border-gray-100 transform transition-all duration-300 hover:scale-[1.01]">
 
         <div id="mainMenu" class="">
             <h1 class="text-4xl font-extrabold text-center text-gray-900 mb-8 drop-shadow-sm">حاسبة مخصصة</h1>
             <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">اختر الوظيفة:</h2>
-            <button id="showWeightCalcBtn" class="w-full text-white p-4 rounded-xl text-xl font-semibold bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-blue-300 mb-4">
+            <button id="showWeightCalcBtn" class="w-full text-white p-4 rounded-2xl text-xl font-semibold bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-103 transform focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50 mb-4">
                 حساب سعر المنتج حسب الوزن
             </button>
-            <button id="showDeductionCalcBtn" class="w-full text-white p-4 rounded-xl text-xl font-semibold bg-purple-600 hover:bg-purple-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-purple-300 mb-4">
+            <button id="showDeductionCalcBtn" class="w-full text-white p-4 rounded-2xl text-xl font-semibold bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-103 transform focus:outline-none focus:ring-4 focus:ring-purple-300 focus:ring-opacity-50 mb-4">
                 حساب نسبة الاستقطاع
             </button>
-            <button id="showMalzamaCalcBtn" class="w-full text-white p-4 rounded-xl text-xl font-semibold bg-green-600 hover:bg-green-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-green-300 mb-4">
+            <button id="showMalzamaCalcBtn" class="w-full text-white p-4 rounded-2xl text-xl font-semibold bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-103 transform focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-50 mb-4">
                 حساب سعر الملزمة
             </button>
-            <p class="mt-12 text-lg font-semibold text-gray-700 opacity-80 tracking-wide text-center">حسين حميد الشريفي</p>
+            <p class="mt-12 text-xl font-bold text-white bg-green-700 py-4 px-6 rounded-2xl shadow-xl text-center tracking-wide">حسين حميد الشريفي</p>
         </div>
 
         <div id="weightCalculationSection" class="hidden">
@@ -53,29 +53,29 @@
             <div class="mb-5">
                 <label for="pricePerKg" class="block text-gray-700 text-lg font-semibold mb-2">سعر الكيلوغرام:</label>
                 <input type="number" id="pricePerKg" min="0" step="0.01" placeholder="أدخل سعر الكيلوغرام"
-                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg transition duration-200">
+                       class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 text-lg transition duration-200">
             </div>
 
             <div class="mb-7">
                 <label for="grams" class="block text-gray-700 text-lg font-semibold mb-2">عدد الغرامات:</label>
                 <input type="number" id="grams" min="0" step="1" placeholder="أدخل عدد الغرامات"
-                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg transition duration-200">
+                       class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 text-lg transition duration-200">
             </div>
 
             <div class="flex flex-col sm:flex-row gap-4 mb-6">
-                <button id="calculateBtn" class="w-full sm:w-1/2 text-white p-4 rounded-xl text-xl font-semibold bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-blue-300">
+                <button id="calculateBtn" class="w-full sm:w-1/2 text-white p-4 rounded-2xl text-xl font-semibold bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-103 transform focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50">
                     احسب السعر
                 </button>
-                <button id="clearWeightBtn" class="w-full sm:w-1/2 text-gray-800 p-4 rounded-xl text-xl font-semibold bg-gray-300 hover:bg-gray-400 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-gray-200">
+                <button id="clearWeightBtn" class="w-full sm:w-1/2 text-gray-800 p-4 rounded-2xl text-xl font-semibold bg-gray-300 hover:bg-gray-400 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-103 transform focus:outline-none focus:ring-4 focus:ring-gray-200 focus:ring-opacity-50">
                     مسح
                 </button>
             </div>
 
-            <div id="resultBox" class="bg-blue-50 p-4 rounded-xl text-center text-2xl font-extrabold text-blue-800 border border-blue-200 min-h-[72px] flex items-center justify-center shadow-inner mb-6">
+            <div id="resultBox" class="bg-gray-50 p-4 rounded-xl text-center text-2xl font-extrabold text-blue-800 border border-gray-200 min-h-[72px] flex items-center justify-center shadow-inner mb-6">
                 النتيجة ستظهر هنا
             </div>
 
-            <button id="backToMenuFromWeight" class="w-full text-white p-4 rounded-xl text-xl font-semibold bg-gray-500 hover:bg-gray-600 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-gray-300">
+            <button id="backToMenuFromWeight" class="w-full text-white p-4 rounded-2xl text-xl font-semibold bg-gray-500 hover:bg-gray-600 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-103 transform focus:outline-none focus:ring-4 focus:ring-gray-300 focus:ring-opacity-50">
                 العودة للقائمة الرئيسية
             </button>
         </div>
@@ -86,30 +86,30 @@
             <div class="mb-5">
                 <label for="totalAmount" class="block text-gray-700 text-lg font-semibold mb-2">المبلغ الإجمالي:</label>
                 <input type="number" id="totalAmount" min="0" step="0.01" placeholder="أدخل المبلغ الإجمالي"
-                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg transition duration-200">
+                       class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50 text-lg transition duration-200">
             </div>
 
-            <div id="percentagesContainer" class="mb-4 space-y-3 p-2 bg-gray-50 rounded-lg border border-gray-100">
+            <div id="percentagesContainer" class="mb-4 space-y-3 p-2 bg-gray-50 rounded-xl border border-gray-200">
                 </div>
 
-            <button id="addPercentageBtn" class="w-full text-white p-3 rounded-xl text-lg font-semibold bg-purple-600 hover:bg-purple-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-purple-300 mb-6">
+            <button id="addPercentageBtn" class="w-full text-white p-3 rounded-2xl text-lg font-semibold bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-103 transform focus:outline-none focus:ring-4 focus:ring-purple-300 focus:ring-opacity-50 mb-6">
                 أضف نسبة استقطاع أخرى
             </button>
 
             <div class="flex flex-col sm:flex-row gap-4 mb-6">
-                <button id="calculatePercentageBtn" class="w-full sm:w-1/2 text-white p-4 rounded-xl text-xl font-semibold bg-purple-600 hover:bg-purple-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-purple-300">
+                <button id="calculatePercentageBtn" class="w-full sm:w-1/2 text-white p-4 rounded-2xl text-xl font-semibold bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-103 transform focus:outline-none focus:ring-4 focus:ring-purple-300 focus:ring-opacity-50">
                     احسب الاستقطاع
                 </button>
-                <button id="clearPercentageBtn" class="w-full sm:w-1/2 text-gray-800 p-4 rounded-xl text-xl font-semibold bg-gray-300 hover:bg-gray-400 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-gray-200">
+                <button id="clearPercentageBtn" class="w-full sm:w-1/2 text-gray-800 p-4 rounded-2xl text-xl font-semibold bg-gray-300 hover:bg-gray-400 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-103 transform focus:outline-none focus:ring-4 focus:ring-gray-200 focus:ring-opacity-50">
                     مسح
                 </button>
             </div>
 
-            <div id="percentageResultBox" class="bg-purple-50 p-4 rounded-xl text-xl font-bold text-purple-800 border border-purple-200 min-h-[72px] shadow-inner mb-6">
+            <div id="percentageResultBox" class="bg-gray-50 p-4 rounded-xl text-xl font-bold text-purple-800 border border-gray-200 min-h-[72px] shadow-inner mb-6">
                 النتائج ستظهر هنا
             </div>
 
-            <button id="backToMenuFromDeduction" class="w-full text-white p-4 rounded-xl text-xl font-semibold bg-gray-500 hover:bg-gray-600 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-gray-300">
+            <button id="backToMenuFromDeduction" class="w-full text-white p-4 rounded-2xl text-xl font-semibold bg-gray-500 hover:bg-gray-600 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-103 transform focus:outline-none focus:ring-4 focus:ring-gray-300 focus:ring-opacity-50">
                 العودة للقائمة الرئيسية
             </button>
         </div>
@@ -120,29 +120,29 @@
             <div class="mb-5">
                 <label for="numPages" class="block text-gray-700 text-lg font-semibold mb-2">عدد الصفحات:</label>
                 <input type="number" id="numPages" min="1" step="1" placeholder="أدخل عدد الصفحات"
-                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-lg transition duration-200">
+                       class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 text-lg transition duration-200">
             </div>
 
             <div class="mb-7">
                 <label for="papersPerQuarterDinar" class="block text-gray-700 text-lg font-semibold mb-2">عدد الأوراق لكل ربع دينار:</label>
                 <input type="number" id="papersPerQuarterDinar" min="0.01" step="0.01" placeholder="أدخل عدد الأوراق لكل ربع دينار"
-                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-lg transition duration-200">
+                       class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 text-lg transition duration-200">
             </div>
 
             <div class="flex flex-col sm:flex-row gap-4 mb-6">
-                <button id="calculateMalzamaBtn" class="w-full sm:w-1/2 text-white p-4 rounded-xl text-xl font-semibold bg-green-600 hover:bg-green-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-green-300">
+                <button id="calculateMalzamaBtn" class="w-full sm:w-1/2 text-white p-4 rounded-2xl text-xl font-semibold bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-103 transform focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-opacity-50">
                     احسب السعر
                 </button>
-                <button id="clearMalzamaBtn" class="w-full sm:w-1/2 text-gray-800 p-4 rounded-xl text-xl font-semibold bg-gray-300 hover:bg-gray-400 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-gray-200">
+                <button id="clearMalzamaBtn" class="w-full sm:w-1/2 text-gray-800 p-4 rounded-2xl text-xl font-semibold bg-gray-300 hover:bg-gray-400 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-103 transform focus:outline-none focus:ring-4 focus:ring-gray-200 focus:ring-opacity-50">
                     مسح
                 </button>
             </div>
 
-            <div id="malzamaResultBox" class="bg-green-50 p-4 rounded-xl text-center text-2xl font-extrabold text-green-800 border border-green-200 min-h-[72px] flex items-center justify-center shadow-inner mb-6">
+            <div id="malzamaResultBox" class="bg-gray-50 p-4 rounded-xl text-center text-2xl font-extrabold text-green-800 border border-gray-200 min-h-[72px] flex items-center justify-center shadow-inner mb-6">
                 النتيجة ستظهر هنا
             </div>
 
-            <button id="backToMenuFromMalzama" class="w-full text-white p-4 rounded-xl text-xl font-semibold bg-gray-500 hover:bg-gray-600 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-gray-300">
+            <button id="backToMenuFromMalzama" class="w-full text-white p-4 rounded-2xl text-xl font-semibold bg-gray-500 hover:bg-gray-600 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-103 transform focus:outline-none focus:ring-4 focus:ring-gray-300 focus:ring-opacity-50">
                 العودة للقائمة الرئيسية
             </button>
         </div>
@@ -150,9 +150,9 @@
     </div>
 
     <div id="messageBox" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white p-6 rounded-xl shadow-2xl max-w-sm w-full text-center transform scale-100 transition-transform duration-300 ease-out">
+        <div class="bg-white p-6 rounded-2xl shadow-2xl max-w-sm w-full text-center transform scale-100 transition-transform duration-300 ease-out">
             <p id="messageText" class="text-lg font-semibold text-gray-800 mb-6"></p>
-            <button id="closeMessageBox" class="w-full text-white p-3 rounded-xl text-lg font-semibold bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300">
+            <button id="closeMessageBox" class="w-full text-white p-3 rounded-xl text-lg font-semibold bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50">
                 موافق
             </button>
         </div>
@@ -382,7 +382,7 @@
             input.max = '100';
             input.step = '0.01';
             input.placeholder = 'أدخل نسبة الاستقطاع (%)';
-            input.classList.add('percentage-input', 'w-full', 'p-3', 'border', 'border-gray-300', 'rounded-lg', 'focus:outline-none', 'focus:ring-2', 'focus:ring-purple-500', 'text-lg', 'transition', 'duration-200');
+            input.classList.add('percentage-input', 'w-full', 'p-3', 'border', 'border-gray-200', 'rounded-xl', 'focus:outline-none', 'focus:ring-2', 'focus:ring-purple-400', 'focus:ring-opacity-50', 'text-lg', 'transition', 'duration-200');
 
             const removeBtn = document.createElement('button');
             removeBtn.classList.add('remove-percentage-btn', 'p-2', 'rounded-full', 'bg-red-500', 'text-white', 'hover:bg-red-600', 'transition', 'duration-300', 'ease-in-out', 'shadow-md', 'hover:shadow-lg', 'flex-shrink-0', 'focus:outline-none', 'focus:ring-4', 'focus:ring-red-300');
@@ -511,6 +511,26 @@
         // Initialize: Ensure one percentage input is present when the section is first loaded or cleared
         // This is called when the percentage section is shown for the first time.
         // The main menu is shown by default.
+    </script>
+    <script>
+        // Check if service workers are supported by the browser
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Register the service worker script
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Service Worker registration failed:', error);
+                    });
+            });
+            // Link to manifest.json for PWA features
+            const link = document.createElement('link');
+            link.rel = 'manifest';
+            link.href = './manifest.json';
+            document.head.appendChild(link);
+        }
     </script>
 </body>
 </html>
