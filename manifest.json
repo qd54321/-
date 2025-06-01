@@ -1,19 +1,19 @@
 {
   "name": "حاسبة مخصصة",
   "short_name": "حاسبة",
-  "description": "حاسبة ذكية متعددة الاستخدامات.",
-  "start_url": "/index.html",
+  "description": "حاسبة متعددة الوظائف للوزن والاستقطاع وسعر الملزمة.",
+  "start_url": "./index.html",  // تم تصحيح المسار ليكون نسبياً
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4F46E5",
   "icons": [
     {
-      "src": "/icons/icon-192x192.png",
+      "src": "./icons/icon-192x192.png", // تم تصحيح المسار ليكون نسبياً
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-512x512.png",
+      "src": "./icons/icon-512x512.png", // تم تصحيح المسار ليكون نسبياً
       "sizes": "512x512",
       "type": "image/png"
     }

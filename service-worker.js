@@ -1,15 +1,15 @@
 // Define the name of your cache
-const CACHE_NAME = 'حسين  حميد';
+const CACHE_NAME = 'custom-calculator-cache-v2'; // قم بتغيير رقم الإصدار هنا في كل مرة تحدث فيها الملفات المخزنة مؤقتًا
 
 // List all the assets you want to cache for offline use
 const urlsToCache = [
-  '/', // Caches the root URL, which typically serves index.html
-  '/index.html',
-  '/manifest.json',
-  '/service-worker.js',
-  // Add paths to your icons if you created them
-  // '/icons/icon-192x192.png',
-  // '/icons/icon-512x512.png',
+  './', // Caches the current directory, which typically serves index.html
+  './index.html',
+  './manifest.json',
+  './service-worker.js',
+  // Add paths to your icons if you created them (تأكد من وجود هذه الملفات في مجلد icons)
+  // './icons/icon-192x192.png',
+  // './icons/icon-512x512.png',
   // Add any other CSS, JS, or font files that are critical for offline functionality
   'https://cdn.tailwindcss.com', // Tailwind CSS CDN
   'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap' // Google Fonts
@@ -60,7 +60,7 @@ self.addEventListener('fetch', (event) => {
       })
       .catch((error) => {
         console.error('Fetch failed:', error);
-        // You can return an offline fallback page here if needed
+        // يمكنك إرجاع صفحة احتياطية للعمل دون اتصال هنا إذا لزم الأمر
         // For example: return caches.match('/offline.html');
       })
   );

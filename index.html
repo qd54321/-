@@ -516,7 +516,7 @@
         // Check if service workers are supported by the browser
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                // Register the service worker script
+                // Register the service worker script using a relative path
                 navigator.serviceWorker.register('./service-worker.js')
                     .then(registration => {
                         console.log('Service Worker registered with scope:', registration.scope);
@@ -525,7 +525,7 @@
                         console.error('Service Worker registration failed:', error);
                     });
             });
-            // Link to manifest.json for PWA features
+            // Link to manifest.json for PWA features using a relative path
             const link = document.createElement('link');
             link.rel = 'manifest';
             link.href = './manifest.json';
