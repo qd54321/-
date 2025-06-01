@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة مخصصة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Apply Inter font family to the body */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar for percentage inputs container */
+        #percentagesContainer {
+            max-height: 200px; /* Limit height to enable scrolling */
+            overflow-y: auto; /* Enable vertical scrolling */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        /* Hide scrollbar for Webkit browsers */
+        #percentagesContainer::-webkit-scrollbar {
+            display: none;
+        }
+        /* Custom styles for focus rings and shadows (optional, Tailwind handles most) */
+        input:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-200 to-purple-300 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white p-8 rounded-3xl shadow-2xl shadow-blue-300/50 w-full max-w-md border border-gray-100 transform transition-all duration-300 hover:scale-[1.01]">
+
+        <div id="mainMenu" class="">
+            <h1 class="text-4xl font-extrabold text-center text-gray-900 mb-8 drop-shadow-sm">حاسبة مخصصة</h1>
+            <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">اختر الوظيفة:</h2>
+            <button id="showWeightCalcBtn" class="w-full text-white p-4 rounded-xl text-xl font-semibold bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-blue-300 mb-4">
+                حساب سعر المنتج حسب الوزن
+            </button>
+            <button id="showDeductionCalcBtn" class="w-full text-white p-4 rounded-xl text-xl font-semibold bg-purple-600 hover:bg-purple-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-purple-300 mb-4">
+                حساب نسبة الاستقطاع
+            </button>
+            <button id="showMalzamaCalcBtn" class="w-full text-white p-4 rounded-xl text-xl font-semibold bg-green-600 hover:bg-green-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-green-300 mb-4">
+                حساب سعر الملزمة
+            </button>
+            <p class="mt-12 text-lg font-semibold text-gray-700 opacity-80 tracking-wide text-center">حسين حميد الشريفي</p>
+        </div>
+
+        <div id="weightCalculationSection" class="hidden">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">حساب سعر المنتج حسب الوزن</h2>
+
+            <div class="mb-5">
+                <label for="pricePerKg" class="block text-gray-700 text-lg font-semibold mb-2">سعر الكيلوغرام:</label>
+                <input type="number" id="pricePerKg" min="0" step="0.01" placeholder="أدخل سعر الكيلوغرام"
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg transition duration-200">
+            </div>
+
+            <div class="mb-7">
+                <label for="grams" class="block text-gray-700 text-lg font-semibold mb-2">عدد الغرامات:</label>
+                <input type="number" id="grams" min="0" step="1" placeholder="أدخل عدد الغرامات"
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg transition duration-200">
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                <button id="calculateBtn" class="w-full sm:w-1/2 text-white p-4 rounded-xl text-xl font-semibold bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    احسب السعر
+                </button>
+                <button id="clearWeightBtn" class="w-full sm:w-1/2 text-gray-800 p-4 rounded-xl text-xl font-semibold bg-gray-300 hover:bg-gray-400 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-gray-200">
+                    مسح
+                </button>
+            </div>
+
+            <div id="resultBox" class="bg-blue-50 p-4 rounded-xl text-center text-2xl font-extrabold text-blue-800 border border-blue-200 min-h-[72px] flex items-center justify-center shadow-inner mb-6">
+                النتيجة ستظهر هنا
+            </div>
+
+            <button id="backToMenuFromWeight" class="w-full text-white p-4 rounded-xl text-xl font-semibold bg-gray-500 hover:bg-gray-600 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-gray-300">
+                العودة للقائمة الرئيسية
+            </button>
+        </div>
+
+        <div id="percentageDeductionSection" class="hidden">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">استقطاع حسب النسبة</h2>
+
+            <div class="mb-5">
+                <label for="totalAmount" class="block text-gray-700 text-lg font-semibold mb-2">المبلغ الإجمالي:</label>
+                <input type="number" id="totalAmount" min="0" step="0.01" placeholder="أدخل المبلغ الإجمالي"
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg transition duration-200">
+            </div>
+
+            <div id="percentagesContainer" class="mb-4 space-y-3 p-2 bg-gray-50 rounded-lg border border-gray-100">
+                </div>
+
+            <button id="addPercentageBtn" class="w-full text-white p-3 rounded-xl text-lg font-semibold bg-purple-600 hover:bg-purple-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-purple-300 mb-6">
+                أضف نسبة استقطاع أخرى
+            </button>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                <button id="calculatePercentageBtn" class="w-full sm:w-1/2 text-white p-4 rounded-xl text-xl font-semibold bg-purple-600 hover:bg-purple-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-purple-300">
+                    احسب الاستقطاع
+                </button>
+                <button id="clearPercentageBtn" class="w-full sm:w-1/2 text-gray-800 p-4 rounded-xl text-xl font-semibold bg-gray-300 hover:bg-gray-400 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-gray-200">
+                    مسح
+                </button>
+            </div>
+
+            <div id="percentageResultBox" class="bg-purple-50 p-4 rounded-xl text-xl font-bold text-purple-800 border border-purple-200 min-h-[72px] shadow-inner mb-6">
+                النتائج ستظهر هنا
+            </div>
+
+            <button id="backToMenuFromDeduction" class="w-full text-white p-4 rounded-xl text-xl font-semibold bg-gray-500 hover:bg-gray-600 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-gray-300">
+                العودة للقائمة الرئيسية
+            </button>
+        </div>
+
+        <div id="malzamaCalculationSection" class="hidden">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">حساب سعر الملزمة</h2>
+
+            <div class="mb-5">
+                <label for="numPages" class="block text-gray-700 text-lg font-semibold mb-2">عدد الصفحات:</label>
+                <input type="number" id="numPages" min="1" step="1" placeholder="أدخل عدد الصفحات"
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-lg transition duration-200">
+            </div>
+
+            <div class="mb-7">
+                <label for="papersPerQuarterDinar" class="block text-gray-700 text-lg font-semibold mb-2">عدد الأوراق لكل ربع دينار:</label>
+                <input type="number" id="papersPerQuarterDinar" min="0.01" step="0.01" placeholder="أدخل عدد الأوراق لكل ربع دينار"
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-lg transition duration-200">
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                <button id="calculateMalzamaBtn" class="w-full sm:w-1/2 text-white p-4 rounded-xl text-xl font-semibold bg-green-600 hover:bg-green-700 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-green-300">
+                    احسب السعر
+                </button>
+                <button id="clearMalzamaBtn" class="w-full sm:w-1/2 text-gray-800 p-4 rounded-xl text-xl font-semibold bg-gray-300 hover:bg-gray-400 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-gray-200">
+                    مسح
+                </button>
+            </div>
+
+            <div id="malzamaResultBox" class="bg-green-50 p-4 rounded-xl text-center text-2xl font-extrabold text-green-800 border border-green-200 min-h-[72px] flex items-center justify-center shadow-inner mb-6">
+                النتيجة ستظهر هنا
+            </div>
+
+            <button id="backToMenuFromMalzama" class="w-full text-white p-4 rounded-xl text-xl font-semibold bg-gray-500 hover:bg-gray-600 transition duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-105 transform focus:outline-none focus:ring-4 focus:ring-gray-300">
+                العودة للقائمة الرئيسية
+            </button>
+        </div>
+
+    </div>
+
+    <div id="messageBox" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-xl shadow-2xl max-w-sm w-full text-center transform scale-100 transition-transform duration-300 ease-out">
+            <p id="messageText" class="text-lg font-semibold text-gray-800 mb-6"></p>
+            <button id="closeMessageBox" class="w-full text-white p-3 rounded-xl text-lg font-semibold bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300">
+                موافق
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Get all necessary DOM elements
+        const mainMenu = document.getElementById('mainMenu');
+        const showWeightCalcBtn = document.getElementById('showWeightCalcBtn');
+        const showDeductionCalcBtn = document.getElementById('showDeductionCalcBtn');
+        const showMalzamaCalcBtn = document.getElementById('showMalzamaCalcBtn');
+
+        const weightCalculationSection = document.getElementById('weightCalculationSection');
+        const pricePerKgInput = document.getElementById('pricePerKg');
+        const gramsInput = document.getElementById('grams');
+        const calculateWeightBtn = document.getElementById('calculateBtn');
+        const clearWeightBtn = document.getElementById('clearWeightBtn');
+        const resultBox = document.getElementById('resultBox');
+        const backToMenuFromWeightBtn = document.getElementById('backToMenuFromWeight');
+
+        const percentageDeductionSection = document.getElementById('percentageDeductionSection');
+        const totalAmountInput = document.getElementById('totalAmount');
+        const percentagesContainer = document.getElementById('percentagesContainer');
+        const addPercentageBtn = document.getElementById('addPercentageBtn');
+        const calculatePercentageBtn = document.getElementById('calculatePercentageBtn');
+        const clearPercentageBtn = document.getElementById('clearPercentageBtn');
+        const percentageResultBox = document.getElementById('percentageResultBox');
+        const backToMenuFromDeductionBtn = document.getElementById('backToMenuFromDeduction');
+
+        const malzamaCalculationSection = document.getElementById('malzamaCalculationSection');
+        const numPagesInput = document.getElementById('numPages');
+        const papersPerQuarterDinarInput = document.getElementById('papersPerQuarterDinar');
+        const calculateMalzamaBtn = document.getElementById('calculateMalzamaBtn');
+        const clearMalzamaBtn = document.getElementById('clearMalzamaBtn');
+        const malzamaResultBox = document.getElementById('malzamaResultBox');
+        const backToMenuFromMalzamaBtn = document.getElementById('backToMenuFromMalzama');
+
+        const messageBox = document.getElementById('messageBox');
+        const messageText = document.getElementById('messageText');
+        const closeMessageBoxBtn = document.getElementById('closeMessageBox');
+
+        /**
+         * Displays a message in the custom message box.
+         * @param {string} message - The message to display.
+         */
+        function showMessageBox(message) {
+            messageText.textContent = message;
+            messageBox.classList.remove('hidden');
+            // Optional: Add a subtle animation when showing the message box
+            messageBox.querySelector('div').classList.add('scale-105');
+            setTimeout(() => {
+                messageBox.querySelector('div').classList.remove('scale-105');
+            }, 300);
+        }
+
+        // Event listener to close the message box
+        closeMessageBoxBtn.addEventListener('click', () => {
+            messageBox.classList.add('hidden');
+        });
+
+        /**
+         * Hides all calculator sections and shows the main menu.
+         */
+        function hideAllSections() {
+            mainMenu.classList.add('hidden');
+            weightCalculationSection.classList.add('hidden');
+            percentageDeductionSection.classList.add('hidden');
+            malzamaCalculationSection.classList.add('hidden');
+        }
+
+        /**
+         * Formats a number to Arabic style with "ألف" and "مليون",
+         * based on the user's specific requirements.
+         * - Convert 000 to "ألف" and 000000 to "مليون" ONLY if the division results in a whole number.
+         * - Numbers less than 1000 should appear as is, without conversion or decimals.
+         * - Any other number (not a clean multiple of 1000 or 1,000,000) should appear as is,
+         * with its original decimal precision (or up to 2 decimal places if it has a fractional part).
+         * @param {number} num - The number to format.
+         * @returns {string} The formatted string.
+         */
+        function formatNumberToArabic(num) {
+            if (isNaN(num)) {
+                return '';
+            }
+
+            const absoluteNum = Math.abs(num);
+            const isOriginalNumWhole = Number.isInteger(num);
+
+            // Check for millions conversion (only if it's a clean multiple of 1,000,000)
+            if (absoluteNum >= 1000000 && Number.isInteger(num / 1000000)) {
+                return `${num / 1000000} مليون`;
+            }
+            // Check for thousands conversion (only if it's a clean multiple of 1000)
+            else if (absoluteNum >= 1000 && Number.isInteger(num / 1000)) {
+                return `${num / 1000} ألف`;
+            }
+            // If no specific "ألف" or "مليون" conversion applies, display as is
+            else {
+                // If the original number is whole, display it as a string without decimals.
+                // If it has a fractional part, display with up to 2 decimal places.
+                return isOriginalNumWhole ? num.toString() : num.toFixed(2);
+            }
+        }
+
+
+        /**
+         * Clears inputs and results for the weight calculation section.
+         */
+        function clearWeightCalc() {
+            pricePerKgInput.value = '';
+            gramsInput.value = '';
+            resultBox.textContent = 'النتيجة ستظهر هنا';
+            resultBox.classList.remove('text-red-500', 'text-green-600');
+            resultBox.classList.add('text-blue-800'); // Revert to initial color
+        }
+
+        /**
+         * Clears inputs and results for the percentage deduction section.
+         * Resets to a single percentage input field.
+         */
+        function clearPercentageCalc() {
+            totalAmountInput.value = '';
+            percentagesContainer.innerHTML = ''; // Clear all percentage inputs
+            addPercentageInput(); // Add one default percentage input
+            percentageResultBox.innerHTML = 'النتائج ستظهر هنا';
+            percentageResultBox.classList.remove('text-red-500', 'text-green-600');
+            percentageResultBox.classList.add('text-purple-800'); // Revert to initial color
+        }
+
+        /**
+         * Clears inputs and results for the malzama calculation section.
+         */
+        function clearMalzamaCalc() {
+            numPagesInput.value = '';
+            papersPerQuarterDinarInput.value = '';
+            malzamaResultBox.textContent = 'النتيجة ستظهر هنا';
+            malzamaResultBox.classList.remove('text-red-500', 'text-green-600');
+            malzamaResultBox.classList.add('text-green-800'); // Revert to initial color
+        }
+
+        // --- Navigation Logic ---
+
+        showWeightCalcBtn.addEventListener('click', () => {
+            hideAllSections();
+            clearWeightCalc(); // Clear previous data
+            weightCalculationSection.classList.remove('hidden');
+            mainMenu.classList.add('hidden'); // Ensure main menu is hidden
+        });
+
+        showDeductionCalcBtn.addEventListener('click', () => {
+            hideAllSections();
+            clearPercentageCalc(); // Clear previous data and reset percentage inputs
+            percentageDeductionSection.classList.remove('hidden');
+            mainMenu.classList.add('hidden'); // Ensure main menu is hidden
+        });
+
+        showMalzamaCalcBtn.addEventListener('click', () => {
+            hideAllSections();
+            clearMalzamaCalc(); // Clear previous data
+            malzamaCalculationSection.classList.remove('hidden');
+            mainMenu.classList.add('hidden'); // Ensure main menu is hidden
+        });
+
+        backToMenuFromWeightBtn.addEventListener('click', () => {
+            hideAllSections();
+            mainMenu.classList.remove('hidden'); // Show main menu
+            clearWeightCalc(); // Clear inputs when returning to menu
+        });
+
+        backToMenuFromDeductionBtn.addEventListener('click', () => {
+            hideAllSections();
+            mainMenu.classList.remove('hidden'); // Show main menu
+            clearPercentageCalc(); // Clear inputs when returning to menu
+        });
+
+        backToMenuFromMalzamaBtn.addEventListener('click', () => {
+            hideAllSections();
+            mainMenu.classList.remove('hidden'); // Show main menu
+            clearMalzamaCalc(); // Clear inputs when returning to menu
+        });
+
+        // --- Weight Calculation Logic ---
+
+        calculateWeightBtn.addEventListener('click', () => {
+            const pricePerKg = parseFloat(pricePerKgInput.value);
+            const grams = parseFloat(gramsInput.value);
+
+            // Input validation
+            if (isNaN(pricePerKg) || pricePerKg < 0) {
+                showMessageBox('الرجاء إدخال سعر كيلوغرام صحيح وموجب.');
+                resultBox.textContent = 'خطأ في الإدخال';
+                resultBox.classList.remove('text-blue-800', 'text-green-600');
+                resultBox.classList.add('text-red-500');
+                return;
+            }
+            if (isNaN(grams) || grams < 0) {
+                showMessageBox('الرجاء إدخال عدد غرامات صحيح وموجب.');
+                resultBox.textContent = 'خطأ في الإدخال';
+                resultBox.classList.remove('text-blue-800', 'text-green-600');
+                resultBox.classList.add('text-red-500');
+                return;
+            }
+
+            // Calculate price
+            const totalPrice = (pricePerKg / 1000) * grams;
+
+            // Display result with Arabic formatting
+            resultBox.textContent = `السعر: ${formatNumberToArabic(totalPrice)} دينار`;
+            resultBox.classList.remove('text-red-500', 'text-blue-800');
+            resultBox.classList.add('text-green-600');
+        });
+
+        clearWeightBtn.addEventListener('click', clearWeightCalc);
+
+        // --- Percentage Deduction Logic ---
+
+        /**
+         * Adds a new percentage input field with a remove button.
+         */
+        function addPercentageInput() {
+            const percentageInputWrapper = document.createElement('div');
+            percentageInputWrapper.classList.add('flex', 'items-center', 'gap-2', 'percentage-input-wrapper');
+
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.min = '0';
+            input.max = '100';
+            input.step = '0.01';
+            input.placeholder = 'أدخل نسبة الاستقطاع (%)';
+            input.classList.add('percentage-input', 'w-full', 'p-3', 'border', 'border-gray-300', 'rounded-lg', 'focus:outline-none', 'focus:ring-2', 'focus:ring-purple-500', 'text-lg', 'transition', 'duration-200');
+
+            const removeBtn = document.createElement('button');
+            removeBtn.classList.add('remove-percentage-btn', 'p-2', 'rounded-full', 'bg-red-500', 'text-white', 'hover:bg-red-600', 'transition', 'duration-300', 'ease-in-out', 'shadow-md', 'hover:shadow-lg', 'flex-shrink-0', 'focus:outline-none', 'focus:ring-4', 'focus:ring-red-300');
+            removeBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            `;
+            removeBtn.title = 'إزالة نسبة الاستقطاع';
+            removeBtn.addEventListener('click', () => {
+                percentageInputWrapper.remove();
+                updateRemoveButtonsVisibility();
+            });
+
+            percentageInputWrapper.appendChild(input);
+            percentageInputWrapper.appendChild(removeBtn);
+            percentagesContainer.appendChild(percentageInputWrapper);
+
+            updateRemoveButtonsVisibility();
+        }
+
+        /**
+         * Updates the visibility of remove buttons based on the number of percentage inputs.
+         * If only one input, hide its remove button.
+         */
+        function updateRemoveButtonsVisibility() {
+            const removeButtons = document.querySelectorAll('.remove-percentage-btn');
+            if (removeButtons.length === 1) {
+                removeButtons[0].classList.add('hidden');
+            } else {
+                removeButtons.forEach(btn => btn.classList.remove('hidden'));
+            }
+        }
+
+        // Add initial percentage input when the section is first loaded or cleared
+        // This is handled by clearPercentageCalc when navigating to the section.
+
+        addPercentageBtn.addEventListener('click', addPercentageInput);
+
+        calculatePercentageBtn.addEventListener('click', () => {
+            const totalAmount = parseFloat(totalAmountInput.value);
+            const percentageInputs = document.querySelectorAll('.percentage-input');
+            let hasError = false;
+
+            // Validate total amount
+            if (isNaN(totalAmount) || totalAmount < 0) {
+                showMessageBox('الرجاء إدخال مبلغ إجمالي صحيح وموجب.');
+                percentageResultBox.innerHTML = '<span class="text-red-500">خطأ في الإدخال</span>';
+                percentageResultBox.classList.remove('text-purple-800', 'text-green-600');
+                percentageResultBox.classList.add('text-red-500');
+                hasError = true;
+                return;
+            }
+
+            const percentages = [];
+            percentageInputs.forEach((input, index) => {
+                const percentage = parseFloat(input.value);
+                if (isNaN(percentage) || percentage < 0 || percentage > 100) {
+                    showMessageBox(`الرجاء إدخال نسبة استقطاع صحيحة (بين 0 و 100) للحقل رقم ${index + 1}.`);
+                    percentageResultBox.innerHTML = '<span class="text-red-500">خطأ في الإدخال</span>';
+                    percentageResultBox.classList.remove('text-purple-800', 'text-green-600');
+                    percentageResultBox.classList.add('text-red-500');
+                    hasError = true;
+                    return;
+                }
+                percentages.push(percentage);
+            });
+
+            if (hasError) {
+                return;
+            }
+
+            let remainingAmount = totalAmount;
+            let resultHtml = `<p class="text-xl font-bold text-gray-800 mb-2">المبلغ الإجمالي: ${formatNumberToArabic(totalAmount)} دينار</p>`;
+            resultHtml += `<ul class="list-disc list-inside text-gray-700 text-lg mb-4">`;
+
+            percentages.forEach((percentage, index) => {
+                const deduction = totalAmount * (percentage / 100);
+                remainingAmount -= deduction;
+                resultHtml += `<li>استقطاع ${percentage.toFixed(2)}%: ${formatNumberToArabic(deduction)} دينار</li>`;
+            });
+
+            resultHtml += `</ul>`;
+            resultHtml += `<p class="text-xl font-bold text-green-600">المبلغ المتبقي: ${formatNumberToArabic(remainingAmount)} دينار</p>`;
+
+            percentageResultBox.innerHTML = resultHtml;
+            percentageResultBox.classList.remove('text-red-500', 'text-purple-800');
+            percentageResultBox.classList.add('text-green-600');
+        });
+
+        clearPercentageBtn.addEventListener('click', clearPercentageCalc);
+
+        // --- Malzama Calculation Logic ---
+
+        calculateMalzamaBtn.addEventListener('click', () => {
+            const numPages = parseInt(numPagesInput.value);
+            const papersPerQuarterDinar = parseFloat(papersPerQuarterDinarInput.value);
+
+            // Input validation
+            if (isNaN(numPages) || numPages < 1) {
+                showMessageBox('الرجاء إدخال عدد صفحات صحيح وموجب (على الأقل 1).');
+                malzamaResultBox.textContent = 'خطأ في الإدخال';
+                malzamaResultBox.classList.remove('text-green-800', 'text-green-600');
+                malzamaResultBox.classList.add('text-red-500');
+                return;
+            }
+            if (isNaN(papersPerQuarterDinar) || papersPerQuarterDinar <= 0) {
+                showMessageBox('الرجاء إدخال عدد أوراق صحيح وموجب لكل ربع دينار.');
+                malzamaResultBox.textContent = 'خطأ في الإدخال';
+                malzamaResultBox.classList.remove('text-green-800', 'text-green-600');
+                malzamaResultBox.classList.add('text-red-500');
+                return;
+            }
+
+            // Calculate price in Fils
+            const totalPriceFils = (numPages / 2) / papersPerQuarterDinar * 250;
+
+            // Display result directly in Fils, formatted by formatNumberToArabic
+            malzamaResultBox.textContent = `السعر: ${formatNumberToArabic(totalPriceFils)} دينار`;
+            malzamaResultBox.classList.remove('text-red-500', 'text-green-800');
+            malzamaResultBox.classList.add('text-green-600');
+        });
+
+        clearMalzamaBtn.addEventListener('click', clearMalzamaCalc);
+
+        // Initialize: Ensure one percentage input is present when the section is first loaded or cleared
+        // This is called when the percentage section is shown for the first time.
+        // The main menu is shown by default.
+    </script>
+</body>
+</html>
