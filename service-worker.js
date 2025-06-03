@@ -1,5 +1,5 @@
 // Define the name of your cache
-const CACHE_NAME = 'custom-calculator-cache-v2'; // قم بتغيير رقم الإصدار هنا في كل مرة تحدث فيها الملفات المخزنة مؤقتًا
+const CACHE_NAME = 'custom-calculator-cache-v3'; // تم تغيير قيمة الإصدار هنا
 
 // List all the assets you want to cache for offline use
 const urlsToCache = [
@@ -7,10 +7,10 @@ const urlsToCache = [
   './index.html',
   './manifest.json',
   './service-worker.js',
-  // Add paths to your icons if you created them (تأكد من وجود هذه الملفات في مجلد icons)
+  // أضف مسارات الأيقونات هنا إذا قمت بإنشائها
   // './icons/icon-192x192.png',
   // './icons/icon-512x512.png',
-  // Add any other CSS, JS, or font files that are critical for offline functionality
+  // أضف أي ملفات CSS أو JS أو خطوط خارجية أخرى ضرورية للعمل دون اتصال
   'https://cdn.tailwindcss.com', // Tailwind CSS CDN
   'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap' // Google Fonts
 ];
@@ -40,14 +40,15 @@ self.addEventListener('fetch', (event) => {
         }
         // No cache hit - fetch from network
         return fetch(event.request).then((networkResponse) => {
-          // Check if we received a valid response
-          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+          // Check if we received a valid response (200 OK)
+          // تم إزالة شرط networkResponse.type !== 'basic' للسماح بتخزين الموارد الخارجية (CDNs) مؤقتاً
+          if (!networkResponse || networkResponse.status !== 200) {
             return networkResponse;
           }
 
-          // IMPORTANT: Clone the response. A response is a stream
-          // and can only be consumed once. We must clone it so that
-          // we can consume one in the cache and one in the browser.
+          // هام: استنساخ الاستجابة. الاستجابة هي تدفق (stream)
+          // ولا يمكن استهلاكها إلا مرة واحدة. يجب استنساخها بحيث
+          // يمكن استهلاك واحدة في ذاكرة التخزين المؤقت وواحدة في المتصفح.
           const responseToCache = networkResponse.clone();
 
           caches.open(CACHE_NAME)
